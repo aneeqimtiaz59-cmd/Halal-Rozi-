@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { AppView, UserRole } from '../types';
 import { 
@@ -40,19 +39,19 @@ export const Layout: React.FC<LayoutProps> = ({
     return (
       <button
         onClick={() => onChangeView(view)}
-        className={`relative flex flex-col items-center justify-center w-full py-2 transition-all duration-300 ${
-          isActive ? 'text-brand-primary scale-110' : 'text-brand-muted hover:text-brand-dark'
+        className={`relative flex flex-col items-center justify-center w-full py-3 transition-all duration-300 group ${
+          isActive ? 'text-brand-primary -translate-y-1' : 'text-gray-400 hover:text-brand-dark'
         }`}
       >
-        <div className="relative">
-            <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+        <div className={`relative p-1.5 rounded-2xl transition-all duration-300 ${isActive ? 'bg-brand-light' : ''}`}>
+            <Icon size={24} strokeWidth={isActive ? 2.5 : 2} className="transition-transform duration-300 group-hover:scale-110"/>
             {badge ? (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-brand-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm border border-white">
                     {badge}
                 </span>
             ) : null}
         </div>
-        <span className="text-[10px] mt-1 font-medium">{label}</span>
+        <span className={`text-[10px] mt-1 font-medium transition-opacity duration-300 ${isActive ? 'opacity-100 font-bold' : 'opacity-0 h-0 overflow-hidden'}`}>{label}</span>
       </button>
     );
   };
@@ -61,83 +60,84 @@ export const Layout: React.FC<LayoutProps> = ({
   const isAdminView = currentView === AppView.ADMIN_DASHBOARD;
 
   return (
-    <div className={`min-h-screen bg-brand-bg flex flex-col font-sans ${lang === 'ur' ? 'font-urdu' : ''}`}>
+    <div className={`min-h-screen bg-brand-bg flex flex-col font-sans selection:bg-brand-primary selection:text-white ${lang === 'ur' ? 'font-urdu' : ''}`}>
       {/* Top Header */}
-      <header className={`sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-3 flex justify-between items-center shadow-sm ${isDetailView ? 'bg-transparent border-none absolute w-full top-0' : ''}`}>
-        <div className="flex items-center gap-3">
-            {isDetailView ? (
-                <button onClick={onBack} className="p-2 bg-white/80 backdrop-blur-md rounded-full shadow-sm hover:bg-white text-gray-700">
-                    <ArrowLeft size={22} />
-                </button>
-            ) : (
-                <div className="flex items-center gap-2" onClick={() => onChangeView(AppView.HOME)}>
-                    <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-primary/30">
-                        H
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${isDetailView ? 'bg-transparent pt-4 px-4' : 'glass-effect border-b border-gray-100/50 px-5 py-4 shadow-sm'}`}>
+        <div className="flex justify-between items-center">
+            <div className="flex items-center gap-3">
+                {isDetailView ? (
+                    <button onClick={onBack} className="p-2.5 bg-white/90 backdrop-blur-xl rounded-full shadow-lg hover:scale-105 transition-transform text-gray-800 border border-white/50">
+                        <ArrowLeft size={22} />
+                    </button>
+                ) : (
+                    <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => onChangeView(AppView.HOME)}>
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-primary to-brand-dark flex items-center justify-center text-white font-serif font-bold text-xl shadow-lg shadow-brand-primary/20">
+                            H
+                        </div>
+                        <h1 className="text-xl font-serif font-bold text-brand-dark tracking-wide">
+                            Halal Rozi
+                        </h1>
                     </div>
-                    <h1 className="text-xl font-serif font-bold brand-gradient-text tracking-wide">
-                        Halal Rozi
-                    </h1>
+                )}
+            </div>
+            
+            {!isDetailView && (
+                <div className="flex gap-2.5">
+                    {userRole === UserRole.ADMIN && !isAdminView && (
+                        <button 
+                        onClick={() => onChangeView(AppView.ADMIN_DASHBOARD)}
+                        className={`p-2 rounded-full bg-gray-100 text-gray-500 hover:text-brand-primary hover:bg-brand-light transition-colors`}
+                        >
+                            <Settings size={20} />
+                        </button>
+                    )}
+                    {isAdminView && (
+                         <button 
+                         onClick={() => onChangeView(AppView.HOME)}
+                         className="px-3 py-1.5 bg-gray-800 rounded-full text-xs font-bold text-white shadow-lg hover:bg-gray-900 transition-transform hover:scale-105"
+                         >
+                             Exit Admin
+                         </button>
+                    )}
+                    <button onClick={onLogout} className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-full transition-colors">
+                        <LogOut size={20} />
+                    </button>
                 </div>
             )}
         </div>
-        
-        {!isDetailView && (
-            <div className="flex gap-2">
-                {userRole === UserRole.ADMIN && !isAdminView && (
-                    <button 
-                    onClick={() => onChangeView(AppView.ADMIN_DASHBOARD)}
-                    className={`p-2 rounded-full border border-gray-200 text-gray-400 hover:text-brand-primary hover:border-brand-primary`}
-                    >
-                        <Settings size={20} />
-                    </button>
-                )}
-                {/* If in Admin View, show a "Close Admin" button essentially */}
-                {isAdminView && (
-                     <button 
-                     onClick={() => onChangeView(AppView.HOME)}
-                     className="px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-600 mr-1"
-                     >
-                         Exit Admin
-                     </button>
-                )}
-                <button onClick={onLogout} className="p-2 text-red-500/80 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors">
-                    <LogOut size={20} />
-                </button>
-            </div>
-        )}
       </header>
 
       {/* Main Content Area */}
-      <main className={`flex-1 overflow-y-auto ${isDetailView || isAdminView ? 'pb-0' : 'pb-24 px-4 py-6'} ${isAdminView ? '' : 'max-w-2xl mx-auto w-full'} scrollbar-hide`}>
+      <main className={`flex-1 overflow-y-auto ${isDetailView || isAdminView ? 'pb-0' : 'pb-28 px-4 py-6'} ${isAdminView ? '' : 'max-w-2xl mx-auto w-full'} scrollbar-hide`}>
         {children}
       </main>
 
-      {/* Bottom Navigation - Hide if in Product Detail View OR Admin View */}
+      {/* Bottom Navigation - Floating Dock Style */}
       {!isDetailView && !isAdminView && (
-        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe pt-1 px-2 z-50 rounded-t-2xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-            <div className="flex justify-around items-center max-w-2xl mx-auto">
-            <NavItem view={AppView.HOME} icon={Home} label={lang === 'ur' ? 'ہوم' : 'Home'} />
-            <NavItem view={AppView.SHOP} icon={ShoppingBag} label={lang === 'ur' ? 'دکان' : 'Shop'} />
-            
-            {/* Center Action Button - Cart */}
-            <div className="relative -top-6">
-                <button 
-                onClick={() => onChangeView(AppView.CART)}
-                className="w-14 h-14 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-lg shadow-brand-primary/40 border-4 border-white transform hover:scale-105 transition-transform"
-                >
-                <div className="relative">
-                    <ShoppingCart size={24} fill="currentColor" />
-                    {cartCount > 0 && (
-                        <span className="absolute -top-2 -right-3 bg-brand-accent text-brand-dark text-[10px] px-1.5 py-0.5 rounded-full font-bold border border-white">
-                            {cartCount}
-                        </span>
-                    )}
+        <nav className="fixed bottom-6 left-4 right-4 z-50 max-w-lg mx-auto">
+            <div className="glass-effect rounded-3xl shadow-glass border border-white/40 flex justify-between items-center px-4 py-1.5 relative">
+                <NavItem view={AppView.HOME} icon={Home} label={lang === 'ur' ? 'ہوم' : 'Home'} />
+                <NavItem view={AppView.SHOP} icon={ShoppingBag} label={lang === 'ur' ? 'دکان' : 'Shop'} />
+                
+                {/* Center Action Button - Cart (Elevated) */}
+                <div className="relative -top-8 mx-2">
+                    <button 
+                    onClick={() => onChangeView(AppView.CART)}
+                    className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-dark flex items-center justify-center text-white shadow-xl shadow-brand-primary/40 border-4 border-[#F3F4F6] transform active:scale-95 transition-all duration-300 group"
+                    >
+                    <div className="relative">
+                        <ShoppingCart size={26} fill="currentColor" className="group-hover:animate-bounce" />
+                        {cartCount > 0 && (
+                            <span className="absolute -top-2 -right-3 bg-brand-accent text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold border-2 border-brand-primary shadow-sm">
+                                {cartCount}
+                            </span>
+                        )}
+                    </div>
+                    </button>
                 </div>
-                </button>
-            </div>
 
-            <NavItem view={AppView.ORDERS} icon={PackageCheck} label={lang === 'ur' ? 'آرڈرز' : 'Orders'} />
-            <NavItem view={AppView.PROFILE} icon={UserIcon} label={lang === 'ur' ? 'پروفائل' : 'Profile'} />
+                <NavItem view={AppView.ORDERS} icon={PackageCheck} label={lang === 'ur' ? 'آرڈرز' : 'Orders'} />
+                <NavItem view={AppView.PROFILE} icon={UserIcon} label={lang === 'ur' ? 'پروفائل' : 'Profile'} />
             </div>
         </nav>
       )}

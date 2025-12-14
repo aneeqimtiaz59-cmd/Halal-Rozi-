@@ -11,7 +11,8 @@ export enum AppView {
   CART = 'CART',
   ORDERS = 'ORDERS',
   PROFILE = 'PROFILE',
-  ADMIN_DASHBOARD = 'ADMIN_DASHBOARD'
+  ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
+  CHAT = 'CHAT'
 }
 
 export interface User {

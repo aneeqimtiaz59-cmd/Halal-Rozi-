@@ -1,24 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Halal Rozi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               brand: {
-                primary: '#059669', // Emerald 600
-                dark: '#064e3b',    // Emerald 900
-                light: '#d1fae5',   // Emerald 100
-                accent: '#D4AF37',  // Gold
-                bg: '#F9FAFB',      // Gray 50
+                primary: '#047857', // Emerald 700 - Darker, richer green
+                dark: '#022c22',    // Emerald 950 - Deep luxury dark
+                light: '#ecfdf5',   // Emerald 50
+                accent: '#F59E0B',  // Amber 500 - Gold/Luxury
+                bg: '#F3F4F6',      // Gray 100 - clean background
                 card: '#FFFFFF',    // White
-                text: '#1F2937',    // Gray 800
+                text: '#111827',    // Gray 900
                 muted: '#6B7280'    // Gray 500
               }
             },
@@ -26,6 +27,10 @@
               sans: ['Inter', 'sans-serif'],
               serif: ['Playfair Display', 'serif'],
               urdu: ['Noto Nastaliq Urdu', 'serif'],
+            },
+            boxShadow: {
+              'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+              'up': '0 -4px 20px -5px rgba(0, 0, 0, 0.1)',
             }
           }
         }
@@ -33,15 +38,22 @@
     </script>
     <style>
       body {
-        background-color: #F9FAFB;
-        color: #1F2937;
+        background-color: #F3F4F6;
+        color: #111827;
+        -webkit-tap-highlight-color: transparent;
       }
       .brand-gradient-text {
-        background: linear-gradient(to right, #059669, #047857);
+        background: linear-gradient(135deg, #047857 0%, #059669 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         color: transparent;
+      }
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
       .scrollbar-hide::-webkit-scrollbar {
           display: none;
@@ -50,12 +62,48 @@
           -ms-overflow-style: none;
           scrollbar-width: none;
       }
-      .fade-in {
-        animation: fadeIn 0.5s ease-in-out;
+      
+      /* Animations */
+      .animate-in {
+        animation-fill-mode: both;
+        animation-duration: 0.4s;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
       }
+      
+      .fade-in { animation-name: fadeIn; }
+      .slide-up { animation-name: slideUp; }
+      .slide-in-right { animation-name: slideInRight; }
+      .zoom-in { animation-name: zoomIn; }
+
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      
+      /* Image shimmer loading effect */
+      .img-loading {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
       }
     </style>
   <script type="importmap">

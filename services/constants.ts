@@ -1,6 +1,5 @@
 
-
-import { LanguageContent, Product } from "./types";
+import { LanguageContent, Product } from "../types";
 
 export const TEXTS: LanguageContent = {
   welcome: { en: "Halal Rozi", ur: "حلال روزی" },
@@ -83,6 +82,7 @@ export const TEXTS: LanguageContent = {
   resellMode: { en: "Sell to Customer", ur: "کسٹمر کو بیچیں" },
   personalMode: { en: "Buy for Myself", ur: "اپنے لیے خریدیں" },
   personalBuy: { en: "Personal Buy", ur: "ذاتی خریداری" },
+  senderName: { en: "Sender / Business Name", ur: "بھیجنے والے کا نام" },
   
   // Checkout & Order Summary
   customerDetails: { en: "Customer Details", ur: "کسٹمر کی تفصیلات" },
@@ -113,6 +113,7 @@ export const TEXTS: LanguageContent = {
   buyForCustomer: { en: "For Customer (Resell)", ur: "کسٹمر کے لیے (ری سیل)" },
   paymentDetails: { en: "Payment Details", ur: "ادائیگی کی تفصیلات" },
   bankName: { en: "Bank / Wallet Name", ur: "بینک / والٹ کا نام" },
+  accountTitle: { en: "Account Title", ur: "اکاؤنٹ ٹائٹل" },
   accountNumber: { en: "Account Number", ur: "اکاؤنٹ نمبر" },
   saveDetails: { en: "Save Details", ur: "تفصیلات محفوظ کریں" },
   profitAccountDesc: { en: "Add account to receive your profits", ur: "اپنا منافع حاصل کرنے کے لیے اکاؤنٹ شامل کریں" },
@@ -134,10 +135,11 @@ export const TEXTS: LanguageContent = {
   payoutInfo: { en: "Profit is transferred automatically every Thursday.", ur: "منافع ہر جمعرات کو خود بخود منتقل کیا جاتا ہے۔" },
   
   // League
-  league: { en: "League", ur: "لیگ" },
-  topResellers: { en: "Top Resellers", ur: "بہترین ری سیلرز" },
+  league: { en: "Performance", ur: "کارکردگی" },
+  topResellers: { en: "Your Stats", ur: "آپ کے اعدادوشمار" },
   rank: { en: "Rank", ur: "درجہ" },
-  totalOrders: { en: "Orders", ur: "آرڈرز" }
+  totalOrders: { en: "Orders", ur: "آرڈرز" },
+  uploadImage: { en: "Upload Image", ur: "تصویر اپ لوڈ کریں" }
 };
 
 export const MOCK_PRODUCTS: Product[] = [
